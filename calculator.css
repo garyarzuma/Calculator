@@ -1,0 +1,67 @@
+body{
+    background-color: rgb(255, 255, 255);
+    font-size:60px;
+    color:white;
+    font-family: sans-serif ;
+}
+
+#result-display-container { 
+    grid-area: result;
+    width: 100%;
+    height: 100%;
+    text-align: right;
+    border: solid;
+    background-color: rgb(90, 90, 90);
+}
+#num0 { grid-area: num0; }
+#num1 { grid-area: num1; }
+#num2 { grid-area: num2; }
+#num3 { grid-area: num3; }
+#num4 { grid-area: num4; }
+#num5 { grid-area: num5; }
+#num6 { grid-area: num6; }
+#num7 { grid-area: num7; }
+#num8 { grid-area: num8; }
+#num9 { grid-area: num9; }
+#AC { grid-area: AC; }
+#plus-minus { grid-area: plus-minus; }
+#percent { grid-area: percent; }
+#slash {grid-area: slash;}
+#multiply {grid-area: multiply;}
+#subtract {grid-area: subtract;}
+#add {grid-area: add;}
+#decimal {grid-area: decimal;}
+#equals {grid-area: equals;}
+
+
+button{
+  font-size: 45px;
+  padding:0px;
+  border-width:1px;
+  color: white;
+  background-color: rgb(177, 177, 177);
+}
+
+
+.calc-container{
+    margin: 0 auto;
+    display:grid;
+    width: 400px;
+    height: 600px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: 'result result result result' 
+                        'AC plus-minus percent slash' 
+                        'num7 num8 num9 multiply' 
+                        'num4 num5 num6 subtract' 
+                        'num1 num2 num3 add' 
+                        'num0 num0 decimal equals';
+}
+
+.operator-col{
+    background-color: orange;
+}
+
+.ac-row{
+    background-color: gray;
+}
