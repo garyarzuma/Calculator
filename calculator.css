@@ -35,7 +35,7 @@ body{
 #AC { grid-area: AC; }
 #plus-minus { grid-area: plus-minus; }
 #percent { grid-area: percent; }
-#slash {grid-area: slash;}
+#divide {grid-area: slash;}
 #multiply {grid-area: multiply;}
 #subtract {grid-area: subtract;}
 #add {grid-area: add;}
