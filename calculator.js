@@ -1,6 +1,7 @@
 let storedNum1 = "";
 let storedNum2 = "";
 let operator = "";
+let previousNum2 = "";
 
 function add (sum1, sum2) {
 	return parseFloat(sum1)+parseFloat(sum2);
@@ -21,7 +22,6 @@ function divide(num1, num2){
 function operate (operator, num1, num2){
     switch(operator){
         case "add":
-
             return add(num1,num2);
         case "subtract": 
             return subtract(num1,num2);
@@ -36,7 +36,6 @@ document.querySelectorAll('.button').forEach(button => button.addEventListener('
 
 function pressButton(e){ 
     const buttonId = e.target.id;
-    let num = "";
     switch(buttonId){
         case "num0":
         case "num1":
@@ -47,37 +46,61 @@ function pressButton(e){
         case "num6":
         case "num7":
         case "num8":
-        case "num9": num = e.target.textContent;
-                     if(operator && storedNum2 === "") displayResults("");
-                     storeNum(num);
-                     displayResults(num);
+        case "num9": pressNumber(e)
                      break;
-        case "AC":  num = e.target.textContent;
-                    displayResults(num);
-                    storedNum1 = "";
-                    storedNum2 = "";
-                    operator = "";
+        case "AC":  pressAC(e)
                     break;
         case "add": 
         case "subtract":
         case "multiply":
-        case "divide": if(storedNum1 && storedNum2) {
-                                displayResults("");
-                                let tempResult = operate(operator, storedNum1, storedNum2);
-                                displayResults(tempResult);
-                                storedNum1 = tempResult;
-                                storedNum2 = "";
-                        }
-                        operator = buttonId;
+        case "divide":  pressOperator(e,buttonId)
                         break;
-        case "equals":  displayResults("");
-                        displayResults(operate(operator, storedNum1, storedNum2));
-                        break;                
+        case "equals":  pressEquals(e)
+                        break;   
+        case "plus-minus": invertSign();
+                        break;     
+        case "percent" : turnToPercent();
+                        break;     
     } 
 }
 
+function pressNumber(e){
+    let num = e.target.textContent;
+    if(operator && storedNum2 === "") displayResults("");
+
+    storeNum(num);
+    displayResults(num);
+}
+
+function pressAC(e){
+    let num = e.target.textContent;
+    displayResults(num);
+    storedNum1 = "";
+    storedNum2 = "";
+    operator = "";
+    previousNum2 = "";
+}
+
+function pressOperator(e, buttonId){
+    if(storedNum1 !== "" && storedNum2 !== "") {
+        displayResults("");
+        let tempResult = operate(operator, storedNum1, storedNum2);
+        displayResults(tempResult);
+        storedNum1 = tempResult;
+        storedNum2 = "";
+    }
+    operator = buttonId;
+}
+
+function pressEquals(e){
+    displayResults("");
+    let tempResult = operate(operator, storedNum1, storedNum2);
+    displayResults(tempResult);
+    storedNum1 = tempResult;
+    storedNum2 = "";
+}
+
 function storeNum(num){
-    
         if(storedNum1 === "" && storedNum2 === ""){
             storedNum1 = num;
         }
@@ -85,8 +108,31 @@ function storeNum(num){
         else if (storedNum2 === ""){
             storedNum2 = num;
         }
-        else storedNum2 += num;
-    
+        else storedNum2 += num; 
+}
+
+function invertSign(){
+    displayResults("");
+    if(storedNum2 === "") {
+        storedNum1 *= -1;
+        displayResults(storedNum1);
+    }
+        else {
+        storedNum2 *= -1;
+        displayResults(storedNum2);
+    }
+}
+
+function turnToPercent(){
+    displayResults("");
+    if(storedNum2 === "") {
+        storedNum1 /= 100;
+        displayResults(storedNum1);
+    }
+        else {
+        storedNum2 /= 100;
+        displayResults(storedNum2);
+    }
 }
 
 function displayResults(textContents){
