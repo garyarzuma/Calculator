@@ -94,8 +94,9 @@ function pressOperator(e, buttonId){
 
 function pressEquals(e){
     displayResults("");
-    let tempResult = operate(operator, storedNum1, storedNum2);
+    let tempResult = operate(operator, storedNum1, storedNum2!=="" ? storedNum2 : previousNum2);
     displayResults(tempResult);
+    previousNum2 = (storedNum2!=="") ? storedNum2 : previousNum2;
     storedNum1 = tempResult;
     storedNum2 = "";
 }
