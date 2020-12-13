@@ -4,7 +4,7 @@ let operator = "";
 let previousNum2 = ""; //used for situations when user is pressing equals over and over to repeat an operation
 
 function add (sum1, sum2) {
-	return parseFloat(sum1)+parseFloat(sum2);
+	return parseFloat(sum1)+parseFloat(sum2); //need to use parseFloat because it will just concatenate since these are strings
 }
 
 function subtract (sum1, sum2)  {
@@ -32,10 +32,10 @@ function operate (operator, num1, num2){
     }
 }
 
-document.querySelectorAll('.button').forEach(button => button.addEventListener('click', pressButton));
+document.querySelectorAll('.button').forEach(button => button.addEventListener('click', pressButton)); //forEach will add a listener to all items in docment that contain the ID .button
 
-function pressButton(e){ 
-    const buttonId = e.target.id;
+function pressButton(e){ //e is the div that the button was pressed on 
+    const buttonId = e.target.id;  //.target.id retursn the ID of the div that was pressed. This identifies what button was pressed. 
     switch(buttonId){
         case "num0":
         case "num1":
@@ -68,13 +68,14 @@ function pressButton(e){
 
 function pressNumber(e){
     let num = e.target.textContent;
-    if(operator && storedNum2 === "") displayResults("");
+    if(operator && storedNum2 === "") displayResults(""); // assumes that this is the second number being typed only if there is no second number
+                                                            // and an operator button has been pressed. 
 
     storeNum(num);
     displayResults(num);
 }
 
-function pressAC(e){
+function pressAC(e){    //clears all variables and sets displayResults to show 0
     let num = e.target.textContent;
     displayResults(num);
     storedNum1 = "";
@@ -84,8 +85,8 @@ function pressAC(e){
 }
 
 function pressOperator(e, buttonId){
-    if(storedNum1 !== "" && storedNum2 !== "") {
-        displayResults("");
+    if(storedNum1 !== "" && storedNum2 !== "") {  //if both numbers are entered then treats the operator as an equals sign so you can 
+        displayResults("");                       //fast input multiple numbers and get results as you hit operations                      
         let tempResult = operate(operator, storedNum1, storedNum2);
         displayResults(tempResult);
         storedNum1 = tempResult;
@@ -95,21 +96,21 @@ function pressOperator(e, buttonId){
 }
 
 function pressEquals(e){
-    if(operator){
+    if(operator){         //equals only does something if an operator has been chosen already
         displayResults("");
         let tempResult = operate(operator, storedNum1, storedNum2!=="" ? storedNum2 : previousNum2);
-        displayResults(parseFloat(tempResult.toString()));
-        previousNum2 = (storedNum2!=="") ? storedNum2 : previousNum2;
-        storedNum1 = tempResult;
+        displayResults(parseFloat(tempResult.toString()));  //removes trailing zeroes of a float because toString removes them automatically
+        previousNum2 = (storedNum2!=="") ? storedNum2 : previousNum2;  //used so that you can press equals over and over to do the same operation again 
+        storedNum1 = tempResult;                                        // with the last number that was entered
         storedNum2 = "";
     }
 }
 
-function storeNum(num){
+function storeNum(num){  //logic here makes it so the stored number is either being added for first time or concatenated to current number. 
         if(storedNum1 === "" && storedNum2 === ""){
             storedNum1 = num;
         }
-        else if(!operator){storedNum1 += num;}
+        else if(!operator){storedNum1 += num;} //if they havent pressed an operation yet then keep increasing the current number
         else if (storedNum2 === ""){
             storedNum2 = num;
         }
