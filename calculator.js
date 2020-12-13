@@ -141,13 +141,15 @@ function turnToPercent(){
 }
 
 function addDecimal(){
-    if(operator && storedNum2 === "") displayResults("");
-    displayResults(".");
-    if(storedNum2 === "" && !operator) {
-        storedNum1 += "."; 
-    }
-        else {
-        storedNum2 += ".";
+    if(document.getElementById("result").textContent.indexOf(".") === -1){ //only add decimal if there is no decimal already in the results window typed
+        if(operator && storedNum2 === "") displayResults("");
+        displayResults(".");
+        if(storedNum2 === "" && !operator) {
+            storedNum1 += "."; 
+        }
+            else {
+            storedNum2 += ".";
+        }
     }
 }
 
