@@ -88,7 +88,7 @@ function pressOperator(e, buttonId){
     if(storedNum1 !== "" && storedNum2 !== "") {  //if both numbers are entered then treats the operator as an equals sign so you can 
         displayResults("");                       //fast input multiple numbers and get results as you hit operations                      
         let tempResult = operate(operator, storedNum1, storedNum2);
-        displayResults(tempResult);
+        displayResults(parseFloat(tempResult.toString())); //removes trailing zeroes of a float because toString removes them automatically
         storedNum1 = tempResult;
         storedNum2 = "";
     }
@@ -96,7 +96,7 @@ function pressOperator(e, buttonId){
 }
 
 function pressEquals(e){
-    if(operator){         //equals only does something if an operator has been chosen already
+    if(operator && (storedNum2!=="" || previousNum2 !== "")){         //equals only does something if an operator has been chosen already
         displayResults("");
         let tempResult = operate(operator, storedNum1, storedNum2!=="" ? storedNum2 : previousNum2);
         displayResults(parseFloat(tempResult.toString()));  //removes trailing zeroes of a float because toString removes them automatically
