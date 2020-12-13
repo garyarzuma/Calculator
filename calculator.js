@@ -98,7 +98,7 @@ function pressEquals(e){
     if(operator){
         displayResults("");
         let tempResult = operate(operator, storedNum1, storedNum2!=="" ? storedNum2 : previousNum2);
-        displayResults(tempResult);
+        displayResults(parseFloat(tempResult.toString()));
         previousNum2 = (storedNum2!=="") ? storedNum2 : previousNum2;
         storedNum1 = tempResult;
         storedNum2 = "";
@@ -154,6 +154,9 @@ function addDecimal(){
 function displayResults(textContents){
     let resultNode = document.getElementById("result");
     const strLength = (textContents) ? textContents.toString().length : 0 ;
+
+    
+
     if(strLength > 10){
         textContents = textContents.toFixed(10-Math.ceil(textContents).toString().length);
     }
