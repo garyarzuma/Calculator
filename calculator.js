@@ -1,7 +1,7 @@
 let storedNum1 = "";
 let storedNum2 = "";
 let operator = "";
-let previousNum2 = "";
+let previousNum2 = ""; //used for situations when user is pressing equals over and over to repeat an operation
 
 function add (sum1, sum2) {
 	return parseFloat(sum1)+parseFloat(sum2);
@@ -153,20 +153,23 @@ function addDecimal(){
     }
 }
 
-function displayResults(textContents){
+function displayResults(textContents){ 
     let resultNode = document.getElementById("result");
     const strLength = (textContents) ? textContents.toString().length : 0 ;
 
-    
-
     if(strLength > 10){
-        textContents = textContents.toFixed(10-Math.ceil(textContents).toString().length);
+        if (textContents < 100000000000) {
+            textContents = textContents.toFixed(10-Math.ceil(textContents).toString().length);  //round decimal places based on how big the integer portion of the number is
+        }
+        else textContents = "Overflow";    
     }
 
     if(textContents === "AC") resultNode.textContent = "0"; 
-    else{
-        if(resultNode.textContent === "0" || textContents === "") resultNode.textContent = "";
-        if(resultNode.textContent.toString().length <11) resultNode.textContent += textContents;
-        else resultNode.textContent = resultNode.textContent.slice(1)+textContents;
+    else if (textContents !== "Overflow"){
+        if(resultNode.textContent === "0" || textContents === "") resultNode.textContent = ""; //clear the zero on the board if you just cleared or clear the board if AC was pressed. 
+        
+        if(resultNode.textContent.toString().length <11) resultNode.textContent += textContents; //add the number typed to the end of the number on display if room for it
+        else resultNode.textContent = resultNode.textContent.slice(1)+textContents; //if no room for it then remove first digit and add next to last position
     }
+    else resultNode.textContent = textContents; 
    }
