@@ -159,7 +159,7 @@ function displayResults(textContents){
     const strLength = (textContents) ? textContents.toString().length : 0 ;
 
     if(strLength > 10){
-        if (textContents < 100000000000) {
+        if (Math.abs(textContents) < 100000000000) {
             textContents = textContents.toFixed(10-Math.ceil(textContents).toString().length);  //round decimal places based on how big the integer portion of the number is
         }
         else textContents = "Overflow";    
