@@ -60,7 +60,9 @@ function pressButton(e){
         case "plus-minus": invertSign();
                         break;     
         case "percent" : turnToPercent();
-                        break;     
+                        break;    
+        case "decimal" : addDecimal();
+                        break;
     } 
 }
 
@@ -93,12 +95,14 @@ function pressOperator(e, buttonId){
 }
 
 function pressEquals(e){
-    displayResults("");
-    let tempResult = operate(operator, storedNum1, storedNum2!=="" ? storedNum2 : previousNum2);
-    displayResults(tempResult);
-    previousNum2 = (storedNum2!=="") ? storedNum2 : previousNum2;
-    storedNum1 = tempResult;
-    storedNum2 = "";
+    if(operator){
+        displayResults("");
+        let tempResult = operate(operator, storedNum1, storedNum2!=="" ? storedNum2 : previousNum2);
+        displayResults(tempResult);
+        previousNum2 = (storedNum2!=="") ? storedNum2 : previousNum2;
+        storedNum1 = tempResult;
+        storedNum2 = "";
+    }
 }
 
 function storeNum(num){
@@ -136,9 +140,20 @@ function turnToPercent(){
     }
 }
 
+function addDecimal(){
+    if(operator && storedNum2 === "") displayResults("");
+    displayResults(".");
+    if(storedNum2 === "" && !operator) {
+        storedNum1 += "."; 
+    }
+        else {
+        storedNum2 += ".";
+    }
+}
+
 function displayResults(textContents){
     let resultNode = document.getElementById("result");
-    const strLength = textContents.toString().length;
+    const strLength = (textContents) ? textContents.toString().length : 0 ;
     if(strLength > 10){
         textContents = textContents.toFixed(10-Math.ceil(textContents).toString().length);
     }
